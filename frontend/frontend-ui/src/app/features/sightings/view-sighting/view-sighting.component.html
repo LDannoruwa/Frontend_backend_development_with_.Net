@@ -1,0 +1,95 @@
+<div class="container">
+    <!--------------------- [Start: title div] ------------------------>
+    <div class="text-center bg-light my-5 border">
+        <h1 class="display-4 mb-3">Details of sighting</h1>
+    </div>
+    <!--------------------- [End: title div] ------------------------>
+
+    <form #DataUpdateForm="ngForm" (ngSubmit)="updateFormData()">
+        <!-- [Start : div card : image with change button] -->
+        <div class="card mb-3">
+            <div class="card-body">
+                <img src= {{sightingDetails.imageSrc}} class="rounded" height = "200px" width = "250px" alt= "image">
+            </div>
+
+            <div class="float-right">
+                <button type="button" class="btn btn-outline-warning m-2 float-end" (click)="toggleFormImageFileInputButton()">change image</button>
+            </div>
+        </div>
+        <!-- [Start : div card : image with change button] -->
+
+        
+        <!-- ------------------------------------------------------------ -->
+        <!-- Start : testing purpose only -->
+        <div class="form-group mb-3" *ngIf ="showImageInputButton">
+            <label for="sightingImage" class="form-label">Image</label>
+            <input type="file" class="form-control" id="sightingImage" name="sightingImage" #FormImage="ngModel" accept="image/*" required (change)="handleFileInput($event)" ngModel>
+            <br>
+            <!-- preview image -->
+            <img [src] = "imageSrc" style="width:250px; height:200px;">
+        </div>
+        <!-- End : testing purpose only -->
+        <!-- ------------------------------------------------------------ -->
+
+        
+        <!-- read only text field -->
+        <div class="form-group mb-3">
+            <label for="sightingId" class="form-label">Id</label>
+            <input type="text" class="form-control" id="sightingId" name="sightingId" readonly [(ngModel)]="sightingDetails.id">
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="sightingMake" class="form-label">Make</label>
+            <input type="text" class="form-control" id="sightingMake" name="sightingMake" maxlength="128" required #make="ngModel" [(ngModel)]="sightingDetails.make">
+        </div>
+        <!-- [Start : input validation ]-->
+        <div class="text-danger mb-3" *ngIf="make.invalid && (make.touched || make.dirty)">
+            Invalid input, please try again.
+        </div>
+        <!-- [End : input validation]-->
+
+        <div class="form-group mb-3">
+            <label for="sightingModel" class="form-label">Model</label>
+            <input type="text" class="form-control" id="sightingModel" name="sightingModel" maxlength="128" required #model="ngModel" [(ngModel)]="sightingDetails.model">
+        </div>
+        <!-- [Start : input validation ]-->
+        <div class="text-danger mb-3" *ngIf="model.invalid && (model.touched || model.dirty)">
+            Invalid input, please try again.
+        </div>
+        <!-- [End : input validation]-->
+
+        <div class="form-group mb-3">
+            <label for="sightingRegistration" class="form-label">Registration</label>
+            <input type="text" class="form-control" id="sightingRegistration" name="sightingRegistration" pattern="([A-Z]{1,2})?[\-]+([A-Z]{1,5})$" maxlength="8" required #registration="ngModel" [(ngModel)]="sightingDetails.registration">
+            <small class="form-text text-muted">Registration number should be in between D-D and DD-DDDDD</small>
+        </div>
+        <!-- [Start : input validation ]-->
+        <div class="text-danger mb-3" *ngIf="registration.invalid && (registration.touched || registration.dirty)">
+            Invalid input, please try again.
+        </div>
+        <!-- [End : input validation]-->
+
+        <div class="form-group mb-3">
+            <label for="sightingLocation" class="form-label">Location</label>
+            <input type="text" class="form-control" id="sightingLocation" name="sightingLocation" maxlength="255" required #location="ngModel" [(ngModel)]="sightingDetails.location">
+        </div>
+        <!-- [Start : input validation ]-->
+        <div class="text-danger mb-3" *ngIf="location.invalid && (location.touched || location.dirty)">
+            Invalid input, please try again.
+        </div>
+        <!-- [End : input validation]-->
+
+        <div class="form-group mb-3">
+            <label for="sightingDateTime" class="form-label">Date & Time</label>
+            <input type="datetime-local" class="form-control" id="sightingDateTime" name="sightingDateTime" required #dateTime="ngModel" placeholder="Pick a Date and Time" [max]="maxDateTimeForm" [(ngModel)]="sightingDetails.observedDateTime">
+        </div>
+        <!-- [Start : input validation ]-->
+        <div class="text-danger mb-3" *ngIf="dateTime.invalid && (dateTime.touched || dateTime.dirty)">
+            Invalid input, please try again.
+        </div>
+        <!-- [End : input validation]-->
+
+        <button type="submit" class="btn btn-success m-2 float-end" [disabled]="DataUpdateForm.invalid">Update</button>
+        <button type="button" class="btn btn-danger m-2 float-end" (click)="deleteFormData(sightingDetails.id)">Delete</button>
+    </form>
+</div>

@@ -1,0 +1,75 @@
+<div class="container">
+    <!--------------------- [Start: title div] ------------------------>
+    <div class="text-center bg-light my-5 border">
+        <h1 class="display-4 mb-3">Add Sighting</h1>
+        </div>
+    <!--------------------- [End: title div] ------------------------>
+
+    <form #DataForm = "ngForm" (ngSubmit)="addFormData(FormMake, FormModel, FormRegistration, FormLocation, FormDateTime, FormImage)">
+        <div class="form-group mb-3">
+            <label for="sightingMake" class="form-label">Make</label>
+            <input type="text" class="form-control" id="sightingMake" name="sightingMake" #FormMake="ngModel" maxlength="128" required ngModel>
+        </div>
+        <!-- [Start : input validation ]-->
+        <div class="text-danger mb-3" *ngIf="FormMake.invalid && (FormMake.touched || FormMake.dirty)">
+            Invalid input, please try again.
+        </div>
+        <!-- [End : input validation]-->
+
+        <div class="form-group mb-3">
+            <label for="sightingModel" class="form-label">Model</label>
+            <input type="text" class="form-control" id="sightingModel" name="sightingModel" #FormModel="ngModel" maxlength="128" required ngModel>
+        </div>
+        <!-- [Start : input validation ]-->
+        <div class="text-danger mb-3" *ngIf="FormModel.invalid && (FormModel.touched || FormModel.dirty)">
+            Invalid input, please try again.
+        </div>
+        <!-- [End : input validation]-->
+
+        <div class="form-group mb-3">
+            <label for="sightingRegistration" class="form-label">Registration</label>
+            <input type="text" class="form-control" id="sightingRegistration" name="sightingRegistration" #FormRegistration="ngModel" pattern="([A-Z]{1,2})?[\-]+([A-Z]{1,5})$" maxlength="8" required ngModel>
+            <small class="form-text text-muted">Registration number should be in between D-D and DD-DDDDD</small>
+        </div>
+        <!-- [Start : input validation ]-->
+        <div class="text-danger mb-3" *ngIf="FormRegistration.invalid && (FormRegistration.touched || FormRegistration.dirty)">
+            Invalid input, please try again.
+        </div>
+        <!-- [End : input validation]-->
+
+        <div class="form-group mb-3">
+            <label for="sightingLocation" class="form-label">Location</label>
+            <input type="text" class="form-control" id="sightingLocation" name="sightingLocation" #FormLocation="ngModel" maxlength="255" required ngModel>
+        </div>
+        <!-- [Start : input validation ]-->
+        <div class="text-danger mb-3" *ngIf="FormLocation.invalid && (FormLocation.touched || FormLocation.dirty)">
+            Invalid input, please try again.
+        </div>
+        <!-- [End : input validation]-->
+
+        <div class="form-group mb-3">
+            <label for="sightingDateTime" class="form-label">Date & Time</label>
+            <input type="datetime-local" class="form-control" id="sightingDateTime" name="sightingDateTime" #FormDateTime="ngModel" [max]="maxDateTimeForm" required ngModel>
+        </div>
+        <!-- [Start : input validation ]-->
+        <div class="text-danger mb-3" *ngIf="FormDateTime.invalid && (FormDateTime.touched || FormDateTime.dirty)">
+            Invalid input, please try again.
+        </div>
+        <!-- [End : input validation]-->
+
+        <div class="form-group mb-3">
+            <label for="sightingImage" class="form-label">Image</label>
+            <input type="file" class="form-control" id="sightingImage" name="sightingImage" #FormImage="ngModel" accept="image/*" required (change)="handleFileInput($event)" ngModel>
+            <br>
+            <!-- preview image -->
+            <img [src] = "imageSrc" style="width:250px; height:200px;">
+        </div>
+        <!-- [Start : input validation ]-->
+        <div class="text-danger mb-3" *ngIf="FormImage.invalid && (FormImage.touched || FormImage.dirty)">
+            Invalid input, please try again.
+        </div>
+        <!-- [End : input validation]-->
+
+        <button type="submit" class="btn btn-success m-2 float-end" [disabled]="FormImage.value =='' || DataForm.invalid">Submit</button>
+    </form>
+</div>
