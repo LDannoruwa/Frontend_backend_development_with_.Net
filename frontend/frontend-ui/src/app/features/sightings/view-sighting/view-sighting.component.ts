@@ -82,7 +82,8 @@ export class ViewSightingComponent {
   updateFormData(){
     const formData: FormData = new FormData();
     
-    //Get input values from component.html
+    //Get input values from sightingDetails object
+    formData.append("id", this.sightingDetails.id.toString());
     formData.append("make", this.sightingDetails.make);
     formData.append("model", this.sightingDetails.model);
     formData.append("registration", this.sightingDetails.registration);
